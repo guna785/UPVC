@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "upvcDesign", "upvcDesign\upvcDesign.csproj", "{3A2E2618-070F-4F91-9031-73D4455E65DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "upvcDAL", "upvcDAL\upvcDAL.csproj", "{4D03A581-CA99-4FA3-95CE-F801510020DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "upvcBL", "upvcBL\upvcBL.csproj", "{FF2B89C5-090A-4059-96B2-E7E61CFF23F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{3A2E2618-070F-4F91-9031-73D4455E65DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A2E2618-070F-4F91-9031-73D4455E65DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A2E2618-070F-4F91-9031-73D4455E65DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D03A581-CA99-4FA3-95CE-F801510020DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D03A581-CA99-4FA3-95CE-F801510020DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D03A581-CA99-4FA3-95CE-F801510020DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D03A581-CA99-4FA3-95CE-F801510020DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2B89C5-090A-4059-96B2-E7E61CFF23F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2B89C5-090A-4059-96B2-E7E61CFF23F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2B89C5-090A-4059-96B2-E7E61CFF23F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2B89C5-090A-4059-96B2-E7E61CFF23F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
