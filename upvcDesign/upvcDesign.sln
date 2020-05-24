@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "upvcDesign", "upvcDesign\upvcDesign.csproj", "{3A2E2618-070F-4F91-9031-73D4455E65DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "upvcDesign", "upvcDesign\upvcDesign.csproj", "{3A2E2618-070F-4F91-9031-73D4455E65DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{176B7935-7442-41D8-A56F-8A16EF2E0636}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{89028950-E687-46BE-B249-E051A5635F05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{3A2E2618-070F-4F91-9031-73D4455E65DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A2E2618-070F-4F91-9031-73D4455E65DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A2E2618-070F-4F91-9031-73D4455E65DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{176B7935-7442-41D8-A56F-8A16EF2E0636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176B7935-7442-41D8-A56F-8A16EF2E0636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176B7935-7442-41D8-A56F-8A16EF2E0636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176B7935-7442-41D8-A56F-8A16EF2E0636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89028950-E687-46BE-B249-E051A5635F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89028950-E687-46BE-B249-E051A5635F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89028950-E687-46BE-B249-E051A5635F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89028950-E687-46BE-B249-E051A5635F05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
