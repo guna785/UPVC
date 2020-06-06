@@ -5,7 +5,7 @@ using System.Text;
 namespace DAL.Madals
 {
      public class companyprofile
-    {
+     {
         public int ID { get; set; }
         public string name { get; set; }
         public string email { get; set; }
@@ -20,5 +20,5 @@ namespace DAL.Madals
         public DateTime cdate { get; set; }
         public string remarks { get; set; }
 
-    }
+     }
 }

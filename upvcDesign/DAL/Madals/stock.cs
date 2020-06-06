@@ -4,7 +4,8 @@ using System.Text;
 
 namespace DAL.Madals
 {
-    class stock
+    public class stock
     {
+        public int ID { get; set; }
     }
 }
