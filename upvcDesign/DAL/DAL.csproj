@@ -5,12 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Helper\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.20" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
   </ItemGroup>
 
   <ItemGroup>

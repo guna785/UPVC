@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +8,8 @@ namespace DAL.Madals
 {
     public class admin
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public int ID { get; set; }
         public string name { get; set; }
         public string uname { get; set; }

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL.DbContexts;
+using DAL.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.Extensions.Options;
 
 namespace upvcDesign
 {
@@ -24,6 +26,12 @@ namespace upvcDesign
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AppDB>(
+              Configuration.GetSection(nameof(AppDB)));
+
+            services.AddSingleton<IAppDB>(sp =>
+                sp.GetRequiredService<IOptions<AppDB>>().Value);
+            services.AddSingleton<UpvcContext>();
             services.AddControllersWithViews();
         }
 
