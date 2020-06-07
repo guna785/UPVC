@@ -9,6 +9,6 @@ namespace DAL.Helper
     {
         public string uname { get; set; }
         public string role { get; set; }
-        public string Token { get; set; }
+        public JwtToken Token { get; set; }
     }
 }

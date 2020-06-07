@@ -51,7 +51,7 @@ namespace upvcDesign
             .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
+                x.SaveToken = true;                
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -59,7 +59,7 @@ namespace upvcDesign
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     RequireExpirationTime = true,
-                    ValidateLifetime = true,
+                    ValidateLifetime = true,                    
                     ClockSkew = TimeSpan.Zero
                 };
             });
@@ -67,6 +67,7 @@ namespace upvcDesign
             {
                 o.IdleTimeout = TimeSpan.FromMinutes(15);
             });
+            services.AddSingleton(typeof(IUserRefreshTokenRepository), typeof(UserRefreshTokenRepository));
             services.AddControllersWithViews();
         }
 

@@ -17,6 +17,7 @@ namespace upvcDesign.Services
     public interface IAuthenticateService
     {
         Task<AunthenticatedModel> Authenticate(string username, string password);
+        string GenerateJwtToken(string username, string role);
     }
     public class AuthenticateService : IAuthenticateService
     {
@@ -36,6 +37,14 @@ namespace upvcDesign.Services
             if (user == null)
                 return null;
 
+
+            var token = GenerateJwtToken(user.uname, user.role);
+            var jwtToken = new JwtToken() { RefreshToken = new RefreshTokenGenerator().GenerateRefreshToken(32), Token =  token};
+            user.Token = jwtToken;
+            return user;
+        }
+        public string GenerateJwtToken(string username,string role)
+        {
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -43,15 +52,14 @@ namespace upvcDesign.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.uname),
-                    new Claim(ClaimTypes.Role, user.role)
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, role)
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(15),
+                Expires = DateTime.UtcNow.AddMinutes(15),               
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
-            return user;
+            return tokenHandler.WriteToken(token);
         }
     }
 }
