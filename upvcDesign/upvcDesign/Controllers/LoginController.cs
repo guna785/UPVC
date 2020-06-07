@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using upvcDesign.Models;
 using upvcDesign.Services;
@@ -26,14 +27,14 @@ namespace upvcDesign.Controllers
         }
         public IActionResult ForgetPassword()
         {
-            return View();             
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> LoginSubmit()
         {
             var uname = HttpContext.Request.Form["Username"];
             var pass = HttpContext.Request.Form["Password"];
-            var res = await Authenticate(new AuthenticateModel() {  Username=uname, Password=pass});
+            var res = await Authenticate(new AuthenticateModel() { Username = uname, Password = pass });
             if (res.Equals("success"))
             {
                 return Redirect("/Home/");
@@ -42,7 +43,7 @@ namespace upvcDesign.Controllers
             {
                 return Unauthorized(res);
             }
-            
+
         }
 
         [AllowAnonymous]
@@ -53,11 +54,16 @@ namespace upvcDesign.Controllers
                 return "Required Fields not Filled";
             }
             var user = await _authenticate.Authenticate(model.Username, model.Password);
-
+            HttpContext.Session.SetString("JWToken", user.Token);
             if (user == null)
                 return "Username or password is incorrect";
 
             return "success";
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("JWToken");
+            return Redirect("/Login/");
         }
     }
 }

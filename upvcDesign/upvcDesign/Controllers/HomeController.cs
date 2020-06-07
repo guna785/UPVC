@@ -6,22 +6,25 @@ using System.Threading.Tasks;
 using BL.Repository;
 using BL.Services;
 using DAL.DbContexts;
+using DAL.Helper;
 using DAL.Madals;
 using DAL.Repositories;
 using DAL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using upvcDesign.Models;
 
 namespace upvcDesign.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         IAdminRepo _repo;
         public HomeController(IAdminRepo repo)
         {
             _repo = repo;
-        }
+        }        
         public async Task<IActionResult> Index()
         {
             var adm = new admin()

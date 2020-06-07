@@ -5,18 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using BL.Repository;
 using BL.Services;
-using DAL.DbContexts;
-using DAL.Helper;
 using DAL.Repositories;
 using DAL.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using upvcDesign.Helper;
 using upvcDesign.Services;
@@ -60,8 +57,15 @@ namespace upvcDesign
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 };
+            });
+            services.AddSession(o =>
+            {
+                o.IdleTimeout = TimeSpan.FromMinutes(15);
             });
             services.AddControllersWithViews();
         }
@@ -80,12 +84,20 @@ namespace upvcDesign
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseStaticFiles();
-
+            app.Use(async (context, next) =>
+            {
+                var JWToken = context.Session.GetString("JWToken");
+                if (!string.IsNullOrEmpty(JWToken))
+                {
+                    context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
+                }
+                await next();
+            });
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
