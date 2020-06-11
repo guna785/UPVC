@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using upvcDesign.Helper;
 using upvcDesign.Services;
+using Newtonsoft.Json.Converters;
 
 namespace upvcDesign
 {
@@ -34,6 +35,8 @@ namespace upvcDesign
         {
             services.AddScoped(typeof( IAdminRepo),typeof( AdminRepo));
             services.AddScoped(typeof(IAdminRepositocry), typeof(AdminRepositocry));
+            services.AddScoped(typeof(IEmpRepo), typeof(EmpRepo));
+            services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
             services.AddScoped(typeof(IAthenticate), typeof(Athenticate));
             services.AddScoped(typeof(IAuthenticateService), typeof(AuthenticateService));
             // configure strongly typed settings objects
@@ -68,7 +71,12 @@ namespace upvcDesign
                 o.IdleTimeout = TimeSpan.FromMinutes(15);
             });
             services.AddSingleton(typeof(IUserRefreshTokenRepository), typeof(UserRefreshTokenRepository));
-            services.AddControllersWithViews();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +115,10 @@ namespace upvcDesign
                 endpoints.MapControllerRoute(
                    name: "Home",
                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                   name: "datatableServer",
+                   pattern: "{controller=datatableServer}/{action=Index}/{id?}");
+
             });
         }
     }

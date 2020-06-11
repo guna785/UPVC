@@ -17,8 +17,28 @@
     <link rel="stylesheet" type="text/css" href="~/asset/css/plugins/simple-line-icons.css" />
     <link rel="stylesheet" type="text/css" href="~/asset/css/plugins/animate.min.css" />
     <link rel="stylesheet" type="text/css" href="~/asset/css/plugins/fullcalendar.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/asset/css/plugins/datatables.bootstrap.min.css" />
     <link href="~/asset/css/style.css" rel="stylesheet">
     <!-- end: Css -->
+    <!-- start: Javascript -->
+    <script src="~/asset/js/jquery.min.js"></script>
+    <script src="~/asset/js/jquery.ui.min.js"></script>
+    <script src="~/asset/js/bootstrap.min.js"></script>
+    <!--Data Tables-->
+    <script src="~/asset/js/plugins/moment.min.js"></script>
+    <script src="~/asset/js/plugins/jquery.datatables.min.js"></script>
+    <script src="~/asset/js/plugins/datatables.bootstrap.min.js"></script>
+
+    <!-- plugins -->
+    <script src="~/asset/js/plugins/moment.min.js"></script>
+    <script src="~/asset/js/plugins/fullcalendar.min.js"></script>
+    <script src="~/asset/js/plugins/jquery.nicescroll.js"></script>
+    <script src="~/asset/js/plugins/jquery.vmap.min.js"></script>
+    <script src="~/asset/js/plugins/maps/jquery.vmap.world.js"></script>
+    <script src="~/asset/js/plugins/jquery.vmap.sampledata.js"></script>
+    <script src="~/asset/js/plugins/chart.min.js"></script>
+    <script src="~/lib/JsonSchema/jsonform.js"></script>
+
 
     <link rel="shortcut icon" href="~/asset/img/logomi.png">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -87,9 +107,9 @@
                 <ul class="nav nav-list">
                     <li><div class="left-bg"></div></li>
                     @*<li class="time">
-                        <h1 class="animated fadeInLeft">21:00</h1>
-                        <p class="animated fadeInRight">Sat,October 1st 2029</p>
-                    </li>*@
+                            <h1 class="animated fadeInLeft">21:00</h1>
+                            <p class="animated fadeInRight">Sat,October 1st 2029</p>
+                        </li>*@
                     <li class="active ripple">
                         <a href="/Home/" class="nav-header">
                             <span class="fa-home fa"></span> Dashboard
@@ -138,7 +158,7 @@
                             <span class="fa fa-pencil-square"></span> Employees  <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="color.html">Employees</a></li>
+                            <li><a href="/Home/Employees">Employees</a></li>
 
                         </ul>
                     </li>
@@ -164,7 +184,7 @@
         <!-- end: Left Menu -->
         <!-- start: content -->
         <div id="content">
-           @RenderBody()
+            @RenderBody()
         </div>
         <!-- end: content -->
         <!-- start: right menu -->
@@ -799,24 +819,13 @@
         <span class="fa fa-bars"></span>
     </button>
     <!-- end: Mobile -->
-    <!-- start: Javascript -->
-    <script src="~/asset/js/jquery.min.js"></script>
-    <script src="~/asset/js/jquery.ui.min.js"></script>
-    <script src="~/asset/js/bootstrap.min.js"></script>
+    
 
-
-    <!-- plugins -->
-    <script src="~/asset/js/plugins/moment.min.js"></script>
-    <script src="~/asset/js/plugins/fullcalendar.min.js"></script>
-    <script src="~/asset/js/plugins/jquery.nicescroll.js"></script>
-    <script src="~/asset/js/plugins/jquery.vmap.min.js"></script>
-    <script src="~/asset/js/plugins/maps/jquery.vmap.world.js"></script>
-    <script src="~/asset/js/plugins/jquery.vmap.sampledata.js"></script>
-    <script src="~/asset/js/plugins/chart.min.js"></script>
-
-
+   
+    
     <!-- custom -->
     <script src="~/asset/js/main.js"></script>
+    
     <script type="text/javascript">
         (function (jQuery) {
 

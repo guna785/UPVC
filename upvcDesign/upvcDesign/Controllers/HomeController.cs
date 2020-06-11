@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using BL.Repository;
 using BL.Services;
-using DAL.DbContexts;
-using DAL.Helper;
 using DAL.Madals;
-using DAL.Repositories;
-using DAL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using upvcDesign.Models;
 
 namespace upvcDesign.Controllers
@@ -20,29 +14,35 @@ namespace upvcDesign.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        IAdminRepo _repo;
-        public HomeController(IAdminRepo repo)
+        IEmpRepo _repo;
+        public HomeController(IEmpRepo repo)
         {
             _repo = repo;
         }        
         public async Task<IActionResult> Index()
         {
-            var adm = new admin()
+            var adm = new user()
             {
                 cdate = DateTime.Now,
-                email = "guna@b2lsolution.in",
-                password = "guna",
+                email = "ashok@b2lsolution.in",
+                password = "ashok@123",
                 phone = "8124632756",
-                name = "guna",
+                name = "ashok",
                 remarks = "none",
-                role = "admin",
-                uname = "guna"
+                role = "user",
+                uname = "ashok"
             };
-            var res = await _repo.InserAdmin(adm);
+            var res = await _repo.InserEmployee(adm);
            return View();
 
         }
 
+        public IActionResult Employees()
+        {
+            return View();
+        }
+
+      
         public IActionResult Privacy()
         {
             return View();
