@@ -10,6 +10,6 @@ namespace DAL.Madals
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ID { get; set; }
+        public string Id { get; set; }
     }
 }

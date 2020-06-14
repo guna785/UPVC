@@ -11,7 +11,7 @@ namespace DAL.Madals
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string name { get; set; }
         [Required(ErrorMessage = "UserName can not be Null")]
         public string uname { get; set; }

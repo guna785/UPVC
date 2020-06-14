@@ -37,6 +37,10 @@ namespace upvcDesign
             services.AddScoped(typeof(IAdminRepositocry), typeof(AdminRepositocry));
             services.AddScoped(typeof(IEmpRepo), typeof(EmpRepo));
             services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
+            services.AddScoped(typeof(IClientRepo), typeof(ClientRepo));
+            services.AddScoped(typeof(IClientRepository), typeof(ClientRepository));
+            services.AddScoped(typeof(ISuplierRepo), typeof(SuplierRepo));
+            services.AddScoped(typeof(ISuplierRepository), typeof(SuplierRepository));
             services.AddScoped(typeof(IAthenticate), typeof(Athenticate));
             services.AddScoped(typeof(IAuthenticateService), typeof(AuthenticateService));
             // configure strongly typed settings objects
@@ -116,8 +120,8 @@ namespace upvcDesign
                    name: "Home",
                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
-                   name: "datatableServer",
-                   pattern: "{controller=datatableServer}/{action=Index}/{id?}");
+                   name: "ViewDataServer",
+                   pattern: "{controller=ViewDataServer}/{action=Index}/{id?}");
 
             });
         }

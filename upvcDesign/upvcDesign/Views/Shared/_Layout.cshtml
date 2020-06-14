@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="~/asset/css/plugins/animate.min.css" />
     <link rel="stylesheet" type="text/css" href="~/asset/css/plugins/fullcalendar.min.css" />
     <link rel="stylesheet" type="text/css" href="~/asset/css/plugins/datatables.bootstrap.min.css" />
+    <link rel="stylesheet" href='~/dist/css/brutusin-json-forms.min.css' />
     <link href="~/asset/css/style.css" rel="stylesheet">
     <!-- end: Css -->
     <!-- start: Javascript -->
@@ -29,6 +30,7 @@
     <script src="~/asset/js/plugins/jquery.datatables.min.js"></script>
     <script src="~/asset/js/plugins/datatables.bootstrap.min.js"></script>
 
+
     <!-- plugins -->
     <script src="~/asset/js/plugins/moment.min.js"></script>
     <script src="~/asset/js/plugins/fullcalendar.min.js"></script>
@@ -37,10 +39,20 @@
     <script src="~/asset/js/plugins/maps/jquery.vmap.world.js"></script>
     <script src="~/asset/js/plugins/jquery.vmap.sampledata.js"></script>
     <script src="~/asset/js/plugins/chart.min.js"></script>
-    <script src="~/lib/JsonSchema/jsonform.js"></script>
+    <!--Json Schema Form-->
+    <script src="~/dist/js/brutusin-json-forms.min.js"></script>
+    <script src="~/dist/js/brutusin-json-forms-bootstrap.min.js"></script>
 
+
+    @*<script src="~/lib/JsonSchema/underscore.js"></script>
+        <script src="~/lib/JsonSchema/jsonform.js"></script>*@
+    <!--Sweet Alert-->
+    <script src="~/sweetAlert/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="~/sweetAlert/sweetalert.css">
 
     <link rel="shortcut icon" href="~/asset/img/logomi.png">
+
+    <script src="~/js/ViewModels/common.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -140,7 +152,7 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="topnav.html">Clients</a></li>
+                            <li><a  asp-action="Clients" asp-controller="Home">Clients</a></li>
                         </ul>
                     </li>
                     <li class="ripple">
@@ -149,7 +161,7 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="chartjs.html">Supliers</a></li>
+                            <li><a  asp-action="Supliers" asp-controller="Home">Supliers</a></li>
 
                         </ul>
                     </li>
@@ -158,7 +170,7 @@
                             <span class="fa fa-pencil-square"></span> Employees  <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a href="/Home/Employees">Employees</a></li>
+                            <li><a asp-action="Employees" asp-controller="Home">Employees</a></li>
 
                         </ul>
                     </li>

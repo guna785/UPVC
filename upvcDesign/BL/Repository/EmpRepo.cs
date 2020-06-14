@@ -15,6 +15,29 @@ namespace BL.Repository
         {
             _repo = repo;
         }
+
+        public async Task<string> DeleteEmployee(string id)
+        {
+            var adm = await _repo.GetEmployeeByUsername(id);
+            if (adm != null)
+            {
+                var res = await _repo.DeleteEmployee(adm.Id);
+                if (res)
+                {
+                    return "Employee data Deletion successfull";
+                }
+                else
+                {
+                    return "Employee data Deletion Fails";
+                }
+
+            }
+            else
+            {
+                return "Employee does Not exists";
+            }
+        }
+
         public async Task<IEnumerable<user>> GetEmployee()
         {
             return await _repo.GetEmployee();
@@ -38,17 +61,40 @@ namespace BL.Repository
                 var res = await _repo.InserEmployee(_emp);
                 if (res)
                 {
-                    return "Admin data insertion successfull";
+                    return "Employee data insertion successfull";
                 }
                 else
                 {
-                    return "Admin data insertion Fails";
+                    return "Employee data insertion Fails";
                 }
 
             }
             else
             {
-                return "Admin User name already exists";
+                return "Employee User name already exists";
+            }
+        }
+
+        public async Task<string> UpdateEmployee(user _emp)
+        {
+            var adm = await _repo.GetEmployeeByUsername(_emp.uname);
+            if (adm != null)
+            {
+                _emp.Id = adm.Id;
+                var res = await _repo.UpdateEmployee(_emp);
+                if (res)
+                {
+                    return "Employee data Updation successfull";
+                }
+                else
+                {
+                    return "Employee data Updation Fails";
+                }
+
+            }
+            else
+            {
+                return "Employee User name Not exists";
             }
         }
     }

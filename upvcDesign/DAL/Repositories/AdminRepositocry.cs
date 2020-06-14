@@ -25,7 +25,7 @@ namespace DAL.Repositories
 
         public async Task<admin> GetAdminByID(string ID)
         {
-            return await context.admins.Find<admin>(a => a.ID.Equals(ID)).FirstOrDefaultAsync();
+            return await context.admins.Find<admin>(a => a.Id.Equals(ID)).FirstOrDefaultAsync();
         }
 
         public async Task<admin> GetAdminByUsername(string uname)

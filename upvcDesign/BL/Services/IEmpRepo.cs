@@ -11,7 +11,8 @@ namespace BL.Services
         Task<user> GetEmployeeByID(string ID);
         Task<user> GetEmployeeByUsername(string uname);
         Task<IEnumerable<user>> GetEmployee();
-
         Task<string> InserEmployee(user _emp);
+        Task<string> UpdateEmployee(user _emp);
+        Task<string> DeleteEmployee(string id);
     }
 }

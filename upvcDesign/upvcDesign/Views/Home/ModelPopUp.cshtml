@@ -1,0 +1,55 @@
+﻿@{ 
+    Layout = null;
+}
+    <div class="form-group" style="padding:30px;">
+        <div id="form-container"></div>
+        <br />
+        <input type="button" onclick="valSubmit();" class="btn btn-primary" value="Submit"/>
+    </div>
+    <script>
+     var sc = '@ViewBag.schema';
+    var schema = JSON.parse(sc.replace(/&quot;/g, '"'));
+    var vl = '@ViewBag.values';
+    var val = {};
+    if (vl !== "") {
+      val = JSON.parse(vl.replace(/&quot;/g, '"'));
+    }
+    var title = '@ViewBag.modalTitle';
+    console.log(schema);
+    var BrutusinForms = brutusin["json-forms"];
+        var bf = BrutusinForms.create(schema);
+        var container = document.getElementById('form-container');
+        bf.render(container, val);
+
+        function valSubmit() {
+            if (bf.validate()) {
+                console.log(bf.getData());
+                 DoAction(title, bf.getData());
+            }
+        }
+    </script>
+
+@*<script type="text/javascript">
+    //debugger;
+    var sc = '@ViewBag.schema';
+    var schema = JSON.parse(sc.replace(/&quot;/g, '"'));
+    var vl = '@ViewBag.values';
+    var val = {};
+    if (vl !== "") {
+      val = JSON.parse(vl.replace(/&quot;/g, '"'));
+    }
+    var title = '@ViewBag.modalTitle';
+    console.log(schema);
+    $('form').jsonForm({
+        /**/
+        schema: schema,
+        value: val,
+        onSubmit: function (errors, values) {
+            onsubmitcall(errors, values);
+        }
+    });
+
+    function onsubmitcall(errors, values) {
+        console.log(values);
+    }
+</script>*@

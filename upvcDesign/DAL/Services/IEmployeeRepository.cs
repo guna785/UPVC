@@ -13,5 +13,7 @@ namespace DAL.Services
         Task<IEnumerable<user>> GetEmployee();
 
         Task<bool> InserEmployee(user _emp);
+        Task<bool> UpdateEmployee(user _emp);
+        Task<bool> DeleteEmployee(string id);
     }
 }

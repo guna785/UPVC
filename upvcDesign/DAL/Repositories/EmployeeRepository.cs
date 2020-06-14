@@ -16,6 +16,18 @@ namespace DAL.Repositories
         {
             context = new UpvcContext();
         }
+
+        public async Task<bool> DeleteEmployee(string id)
+        {
+            FilterDefinition<user> filter = Builders<user>.Filter.Eq(m => m.Id, id);
+
+            DeleteResult deleteResult = await context
+                                                .users
+                                                .DeleteOneAsync(filter);
+
+            return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
+        }
+
         public async Task<IEnumerable<user>> GetEmployee()
         {
             return await context.users.Find(x => true).ToListAsync();
@@ -23,7 +35,7 @@ namespace DAL.Repositories
 
         public async Task<user> GetEmployeeByID(string ID)
         {
-            return await context.users.Find<user>(a => a.ID.Equals(ID)).FirstOrDefaultAsync();
+            return await context.users.Find<user>(a => a.Id.Equals(ID)).FirstOrDefaultAsync();
         }
 
         public async Task<user> GetEmployeeByUsername(string uname)
@@ -39,6 +51,19 @@ namespace DAL.Repositories
                 return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateEmployee(user _emp)
+        {
+            try
+            {
+                ReplaceOneResult updateResult = await context.users.ReplaceOneAsync(g => g.uname == _emp.uname, replacement: _emp);
+                return true;
+            }
+            catch(Exception ex)
             {
                 return false;
             }
