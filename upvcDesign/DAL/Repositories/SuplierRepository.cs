@@ -16,6 +16,18 @@ namespace DAL.Repositories
         {
             context = new UpvcContext();
         }
+
+        public async Task<bool> DeleteSuplier(string id)
+        {
+            FilterDefinition<suplier> filter = Builders<suplier>.Filter.Eq(m => m.Id, id);
+
+            DeleteResult deleteResult = await context
+                                                .supliers
+                                                .DeleteOneAsync(filter);
+
+            return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
+        }
+
         public async Task<IEnumerable<suplier>> GetSuplier()
         {
             return await context.supliers.Find(x => true).ToListAsync();
@@ -39,6 +51,19 @@ namespace DAL.Repositories
                 return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateSuplier(suplier _sup)
+        {
+            try
+            {
+                ReplaceOneResult updateResult = await context.supliers.ReplaceOneAsync(g => g.pan == _sup.pan, replacement: _sup);
+                return true;
+            }
+            catch (Exception ex)
             {
                 return false;
             }

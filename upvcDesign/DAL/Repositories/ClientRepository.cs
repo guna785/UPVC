@@ -16,6 +16,18 @@ namespace DAL.Repositories
         {
             context = new UpvcContext();
         }
+
+        public async Task<bool> DeleteClient(string id)
+        {
+            FilterDefinition<client> filter = Builders<client>.Filter.Eq(m => m.Id, id);
+
+            DeleteResult deleteResult = await context
+                                                .clients
+                                                .DeleteOneAsync(filter);
+
+            return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
+        }
+
         public async Task<IEnumerable<client>> GetClient()
         {
             return await context.clients.Find(x => true).ToListAsync();
@@ -39,6 +51,20 @@ namespace DAL.Repositories
                 return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateClient(client _emp)
+        {
+
+            try
+            {
+                ReplaceOneResult updateResult = await context.clients.ReplaceOneAsync(g => g.pan == _emp.pan, replacement: _emp);
+                return true;
+            }
+            catch (Exception ex)
             {
                 return false;
             }

@@ -21,28 +21,19 @@ namespace upvcDesign.Controllers
     public class HomeController : Controller
     {
         IEmpRepo _repo;
+        IClientRepo _client;
+        ISuplierRepo _suplier;
         private JSchema schema;
 
-        public HomeController(IEmpRepo repo)
+        public HomeController(IEmpRepo repo,IClientRepo clt,ISuplierRepo sup)
         {
             _repo = repo;
+            _client = clt;
+            _suplier = sup;
         }        
         public async Task<IActionResult> Index()
         {
-            var adm = new user()
-            {
-                cdate = DateTime.Now,
-                email = "ashok@b2lsolution.in",
-                password = "ashok@123",
-                phone = "8124632756",
-                name = "ashok",
-                remarks = "none",
-                role = "user",
-                uname = "ashok"
-            };
-            var res = await _repo.InserEmployee(adm);
            return View();
-
         }
 
        [Authorize(Roles =Role.Admin)]
@@ -92,8 +83,24 @@ namespace upvcDesign.Controllers
             }
             else if (ID.Contains("EditClient"))
             {
-                schema = generator.Generate(typeof(AddClient));
+                string ids = ID.Split('-')[1];
+                schema = generator.Generate(typeof(EditClient));
+                var clt = new EditClient(await _client.GetClientByPan(ids));
+                ViewBag.values = Newtonsoft.Json.JsonConvert.SerializeObject(clt);
                 ViewBag.modalTitle = "Edit Client";
+            }
+            else if (ID.Contains("AddSup"))
+            {
+                schema = generator.Generate(typeof(AddSuplier));
+                ViewBag.modalTitle = "Add Suplier";
+            }
+            else if (ID.Contains("EditSup"))
+            {
+                string ids = ID.Split('-')[1];
+                schema = generator.Generate(typeof(EditSuplier));
+                var clt = new EditSuplier(await _suplier.GetSuplierByPan(ids));
+                ViewBag.values = Newtonsoft.Json.JsonConvert.SerializeObject(clt);
+                ViewBag.modalTitle = "Edit Suplier";
             }
 
             ViewBag.schema = Newtonsoft.Json.JsonConvert.SerializeObject(schema);

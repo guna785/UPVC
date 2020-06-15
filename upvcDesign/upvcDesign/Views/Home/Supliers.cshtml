@@ -53,13 +53,12 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-
-
+    function LoadData() {
         $("#datatables-example").DataTable({
             // Design Assets
             stateSave: true,
             autoWidth: true,
+            destroy: true,
             // ServerSide Setups
             processing: true,
             serverSide: true,
@@ -101,7 +100,7 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return '<a href="#" class="btn btn-primary" onclick="ediemp(\'' + row.uname + '\');">Edit</a>  <a class="btn btn-danger" onclick="delemp(\'' + row.uname + '\');" title="delete">Delete</a>';
+                        return '<a href="#" class="btn btn-primary" onclick="ediemp(\'' + row.pan + '\');">Edit</a>  <a class="btn btn-danger" onclick="delemp(\'' + row.pan + '\');" title="delete">Delete</a>';
                     }
                 }
             ],
@@ -122,6 +121,9 @@
                 { targets: "date-type", type: "date-eu" }
             ]
         });
+    }
+    $(document).ready(function () {
+        LoadData();
     });
 
     function strtrunc(str, num) {
@@ -133,14 +135,14 @@
         }
     }
     function addEmployee() {
-        $("#mbody").load("/Home/ModelPopUp/AddEmp", function () {
+        $("#mbody").load("/Home/ModelPopUp/AddSup", function () {
 
             $("#mtitle").text( "Add Suplier");
             $("#EmployeeModel").modal("show");
         });
     }
     function ediemp(id) {
-        $("#mbody").load("/Home/ModelPopUp/EditEmployee-"+id, function () {
+        $("#mbody").load("/Home/ModelPopUp/EditSup-"+id, function () {
             $("#mtitle").text("Add Suplier");
             $("#EmployeeModel").modal("show");
         });
@@ -156,7 +158,23 @@
             closeOnConfirm: false
         },
         function () {
-           swal("Deleted!", "Your Record has been deleted.", "success");
+            $.ajax({
+                url: "/Suplier/DeleteSuplier/",
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                processData: false,
+                data: JSON.stringify(id),
+                async: true,
+                success: function (response) {
+                    swal("Deleted!", "Your Record has been deleted.", "success");
+                    LoadData();
+                },
+                error: function (e) {
+                    swal("Oops", e.responseText, "error");
+                    LoadData();
+                }
+            });
         });
     }
 

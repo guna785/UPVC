@@ -15,6 +15,29 @@ namespace BL.Repository
         {
             _repo = repo;
         }
+
+        public async Task<string> DeleteClient(string id)
+        {
+            var clt = await _repo.GetClientByPan(id);
+            if (clt != null)
+            {
+                var res = await _repo.DeleteClient(clt.Id);
+                if (res)
+                {
+                    return "Client data Deletion successfull";
+                }
+                else
+                {
+                    return "Client data Deletion Fails";
+                }
+
+            }
+            else
+            {
+                return "Client does Not exists";
+            }
+        }
+
         public async Task<IEnumerable<client>> GetClient()
         {
             return await _repo.GetClient();
@@ -38,17 +61,40 @@ namespace BL.Repository
                 var res = await _repo.InserClient(_client);
                 if (res)
                 {
-                    return "Admin data insertion successfull";
+                    return "Client data insertion successfull";
                 }
                 else
                 {
-                    return "Admin data insertion Fails";
+                    return "Client data insertion Fails";
                 }
 
             }
             else
             {
-                return "Admin User name already exists";
+                return "Client User name already exists";
+            }
+        }
+
+        public async Task<string> UpdateClient(client _emp)
+        {
+            var adm = await _repo.GetClientByPan(_emp.pan);
+            if (adm != null)
+            {
+                _emp.Id = adm.Id;
+                var res = await _repo.UpdateClient(_emp);
+                if (res)
+                {
+                    return "Client data Updation successfull";
+                }
+                else
+                {
+                    return "Client data Updation Fails";
+                }
+
+            }
+            else
+            {
+                return "Client User name Not exists";
             }
         }
     }

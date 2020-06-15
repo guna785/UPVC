@@ -17,4 +17,7 @@
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\js\productGraphics\" />
+  </ItemGroup>
 </Project>

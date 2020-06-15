@@ -13,5 +13,7 @@ namespace DAL.Services
         Task<IEnumerable<client>> GetClient();
 
         Task<bool> InserClient(client _client);
+        Task<bool> UpdateClient(client _emp);
+        Task<bool> DeleteClient(string id);
     }
 }

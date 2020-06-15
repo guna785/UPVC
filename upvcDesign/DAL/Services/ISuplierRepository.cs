@@ -13,5 +13,7 @@ namespace DAL.Services
         Task<IEnumerable<suplier>> GetSuplier();
 
         Task<bool> InserSuplier(suplier _suplier);
+        Task<bool> UpdateSuplier(suplier _sup);
+        Task<bool> DeleteSuplier(string id);
     }
 }

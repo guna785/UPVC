@@ -14,7 +14,7 @@
 <div class="col-md-12 top-20 padding-0">
     <div class="col-md-12">
         <div class="panel">
-            <div class="panel-heading"><h3><a onclick="addEmployee();" class="btn btn-outline-primary">Add Client</a></h3></div>
+            <div class="panel-heading"><h3><a onclick="addclient();" class="btn btn-outline-primary">Add Client</a></h3></div>
             <div class="panel-body">
                 <div class="responsive-table">
                     <table id="clientTable" class="table table-striped table-bordered" width="100%" cellspacing="0">
@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="EmployeeModel" role="dialog">
+<div class="modal fade" id="ClientModel" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -54,13 +54,12 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-
-
+    function LoadData() {
         $("#clientTable").DataTable({
             // Design Assets
             stateSave: true,
             autoWidth: true,
+            destroy: true,
             // ServerSide Setups
             processing: true,
             serverSide: true,
@@ -102,7 +101,7 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return '<a href="#" class="btn btn-primary" onclick="ediemp(\'' + row.uname + '\');">Edit</a>  <a class="btn btn-danger" onclick="delemp(\'' + row.uname + '\');" title="delete">Delete</a>';
+                        return '<a href="#" class="btn btn-primary" onclick="ediclient(\'' + row.pan + '\');">Edit</a>  <a class="btn btn-danger" onclick="delclient(\'' + row.pan + '\');" title="delete">Delete</a>';
                     }
                 }
             ],
@@ -123,6 +122,9 @@
                 { targets: "date-type", type: "date-eu" }
             ]
         });
+    }
+    $(document).ready(function () {
+        LoadData();
     });
 
     function strtrunc(str, num) {
@@ -133,20 +135,20 @@
             return str;
         }
     }
-    function addEmployee() {
+    function addclient() {
         $("#mbody").load("/Home/ModelPopUp/AddClient", function () {
 
-            $("#mtitle").text( "Add Client");
-            $("#EmployeeModel").modal("show");
+            $("#mtitle").text("Add Client");
+            $("#ClientModel").modal("show");
         });
     }
-    function ediemp(id) {
-        $("#mbody").load("/Home/ModelPopUp/EditEmployee-"+id, function () {
+    function ediclient(id) {
+        $("#mbody").load("/Home/ModelPopUp/EditClient-" + id, function () {
             $("#mtitle").text("Edit Client");
-            $("#EmployeeModel").modal("show");
+            $("#ClientModel").modal("show");
         });
     }
-    function delemp(id) {
+    function delclient(id) {
         swal({
             title: "Are you sure?",
             text: "Your will not be able to recover this Record!",
@@ -156,9 +158,26 @@
             confirmButtonText: "Yes, delete it!",
             closeOnConfirm: false
         },
-        function () {
-           swal("Deleted!", "Your Record has been deleted.", "success");
-        });
+            function () {
+                $.ajax({
+                    url: "/Client/DeleteClient/",
+                    dataType: 'json',
+                    type: 'post',
+                    contentType: 'application/json',
+                    processData: false,
+                    data: JSON.stringify(id),
+                    async: true,
+                    success: function (response) {
+                        swal("Deleted!", "Your Record has been deleted.", "success");
+                        LoadData();
+                    },
+                    error: function (e) {
+                        swal("Oops", e.responseText, "error");
+                        LoadData();
+                    }
+                });
+
+            });
     }
 
 </script>

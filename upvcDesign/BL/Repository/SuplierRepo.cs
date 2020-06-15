@@ -15,6 +15,29 @@ namespace BL.Repository
         {
             _repo = repo;
         }
+
+        public async Task<string> DeleteSuplier(string id)
+        {
+            var clt = await _repo.GetSuplierByPan(id);
+            if (clt != null)
+            {
+                var res = await _repo.DeleteSuplier(clt.Id);
+                if (res)
+                {
+                    return "Suplier data Deletion successfull";
+                }
+                else
+                {
+                    return "Suplier data Deletion Fails";
+                }
+
+            }
+            else
+            {
+                return "Suplier does Not exists";
+            }
+        }
+
         public async Task<IEnumerable<suplier>> GetSuplier()
         {
             return await _repo.GetSuplier();
@@ -39,17 +62,40 @@ namespace BL.Repository
                 var res = await _repo.InserSuplier(_suplier);
                 if (res)
                 {
-                    return "Admin data insertion successfull";
+                    return "Suplier data insertion successfull";
                 }
                 else
                 {
-                    return "Admin data insertion Fails";
+                    return "Suplier data insertion Fails";
                 }
 
             }
             else
             {
-                return "Admin User name already exists";
+                return "Suplier User name already exists";
+            }
+        }
+
+        public async Task<string> UpdateSuplier(suplier _sup)
+        {
+            var adm = await _repo.GetSuplierByPan(_sup.pan);
+            if (adm != null)
+            {
+                _sup.Id = adm.Id;
+                var res = await _repo.UpdateSuplier(_sup);
+                if (res)
+                {
+                    return "Suplier data Updation successfull";
+                }
+                else
+                {
+                    return "Suplier data Updation Fails";
+                }
+
+            }
+            else
+            {
+                return "Suplier User name Not exists";
             }
         }
     }

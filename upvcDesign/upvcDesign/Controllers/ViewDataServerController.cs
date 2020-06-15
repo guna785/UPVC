@@ -97,7 +97,7 @@ namespace upvcDesign.Controllers
                 orderAscendingDirection = true;
             }
 
-            var result = await _suplier.GetSuplier();
+            var result = await _client.GetClient();
 
             if (!string.IsNullOrEmpty(searchBy))
             {
@@ -114,7 +114,7 @@ namespace upvcDesign.Controllers
 
             // now just get the count of items (without the skip and take) - eg how many could be returned with filtering
             var filteredResultsCount = result.Count();
-            var cntdb = await _suplier.GetSuplier();
+            var cntdb = await _client.GetClient();
             var totalResultsCount = cntdb.Count();
 
             return Json(new
@@ -150,7 +150,7 @@ namespace upvcDesign.Controllers
                 orderAscendingDirection = true;
             }
 
-            var result = await _client.GetClient();
+            var result = await _suplier.GetSuplier();
 
             if (!string.IsNullOrEmpty(searchBy))
             {
@@ -167,7 +167,7 @@ namespace upvcDesign.Controllers
 
             // now just get the count of items (without the skip and take) - eg how many could be returned with filtering
             var filteredResultsCount = result.Count();
-            var cntdb = await _client.GetClient();
+            var cntdb = await _suplier.GetSuplier();
             var totalResultsCount = cntdb.Count();
 
             return Json(new

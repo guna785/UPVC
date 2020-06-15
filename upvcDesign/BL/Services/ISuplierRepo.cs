@@ -11,7 +11,8 @@ namespace BL.Services
         Task<suplier> GetSuplierID(string ID);
         Task<suplier> GetSuplierByPan(string pan);
         Task<IEnumerable<suplier>> GetSuplier();
-
         Task<string> InserSuplier(suplier _suplier);
+        Task<string> UpdateSuplier(suplier _sup);
+        Task<string> DeleteSuplier(string id);
     }
 }

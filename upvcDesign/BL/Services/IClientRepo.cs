@@ -13,5 +13,7 @@ namespace BL.Services
         Task<IEnumerable<client>> GetClient();
 
         Task<string> InserClient(client _client);
+        Task<string> UpdateClient(client _emp);
+        Task<string> DeleteClient(string id);
     }
 }

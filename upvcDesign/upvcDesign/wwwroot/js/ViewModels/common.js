@@ -1,9 +1,9 @@
 ﻿var addEmpUrl = "/Employee/AddEmployee";
 var editEmpUrl = "/Employee/EditEmployee";
-var addClientUrl = "";
-var editClientUrl = "";
-var addSuplierUrl = "";
-var editSuplierUrl = "";
+var addClientUrl = "/Client/AddClient";
+var editClientUrl = "/Client/EditClient";
+var addSuplierUrl = "/Suplier/AddSuplier";
+var editSuplierUrl = "/Suplier/EditSuplier";
 
 function JsonPOST(url, data) {
     $.ajax({
@@ -32,6 +32,22 @@ function DoAction(action, data) {
     }
     else if (action === "Edit Employee") {
         JsonPOST(editEmpUrl, data);
+        LoadData();
+    }
+    else if (action === "Add Client") {
+        JsonPOST(addClientUrl, data);
+        LoadData();
+    }
+    else if (action === "Edit Client") {
+        JsonPOST(editClientUrl, data);
+        LoadData();
+    }
+    else if (action === "Add Suplier") {
+        JsonPOST(addSuplierUrl, data);
+        LoadData();
+    }
+    else if (action === "Edit Suplier") {
+        JsonPOST(editSuplierUrl, data);
         LoadData();
     }
 }
