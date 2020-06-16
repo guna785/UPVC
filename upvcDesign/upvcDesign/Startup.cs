@@ -37,10 +37,14 @@ namespace upvcDesign
             services.AddScoped(typeof(IAdminRepositocry), typeof(AdminRepositocry));
             services.AddScoped(typeof(IEmpRepo), typeof(EmpRepo));
             services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
+            services.AddScoped(typeof(ICompanyRepo), typeof(CompanyRepo));
+            services.AddScoped(typeof(ICompanyRepositary), typeof(CompanyRepositary));
             services.AddScoped(typeof(IClientRepo), typeof(ClientRepo));
             services.AddScoped(typeof(IClientRepository), typeof(ClientRepository));
             services.AddScoped(typeof(ISuplierRepo), typeof(SuplierRepo));
             services.AddScoped(typeof(ISuplierRepository), typeof(SuplierRepository));
+            services.AddScoped(typeof(IMeterialTypeRepo), typeof(MeterialTypeRepo));
+            services.AddScoped(typeof(IMeterialTypeRepository), typeof(MeterialTypeRepository));
             services.AddScoped(typeof(IAthenticate), typeof(Athenticate));
             services.AddScoped(typeof(IAuthenticateService), typeof(AuthenticateService));
             // configure strongly typed settings objects

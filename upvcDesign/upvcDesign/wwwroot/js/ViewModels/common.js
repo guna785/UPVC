@@ -4,6 +4,7 @@ var addClientUrl = "/Client/AddClient";
 var editClientUrl = "/Client/EditClient";
 var addSuplierUrl = "/Suplier/AddSuplier";
 var editSuplierUrl = "/Suplier/EditSuplier";
+var addMaterialType = "/Meterial/AddMaterialType/";
 
 function JsonPOST(url, data) {
     $.ajax({
@@ -48,6 +49,10 @@ function DoAction(action, data) {
     }
     else if (action === "Edit Suplier") {
         JsonPOST(editSuplierUrl, data);
+        LoadData();
+    }
+    else if (action === "Add Material Type") {
+        JsonPOST(addMaterialType, data);
         LoadData();
     }
 }

@@ -23,13 +23,15 @@ namespace upvcDesign.Controllers
         IEmpRepo _repo;
         IClientRepo _client;
         ISuplierRepo _suplier;
+        ICompanyRepo _company;
         private JSchema schema;
 
-        public HomeController(IEmpRepo repo,IClientRepo clt,ISuplierRepo sup)
+        public HomeController(IEmpRepo repo,IClientRepo clt,ISuplierRepo sup, ICompanyRepo company)
         {
             _repo = repo;
             _client = clt;
             _suplier = sup;
+            _company = company;
         }        
         public async Task<IActionResult> Index()
         {
@@ -53,6 +55,29 @@ namespace upvcDesign.Controllers
             return View();
         }
 
+        [Authorize]
+        public IActionResult MateialType()
+        {
+            return View();
+        }
+        [Authorize(Roles =Role.Admin)]
+        public async Task<IActionResult> CompanyProfile()
+        {
+            JSchemaGenerator generator = new JSchemaGenerator();
+
+            // types with no defined ID have their type name as the ID            
+            generator.SchemaIdGenerationHandling = SchemaIdGenerationHandling.TypeName;
+            schema = generator.Generate(typeof(CompanyProfile));
+            var cmp = await _company.GetCompany();
+            if (cmp.Count() > 0)
+            {
+                var users = new CompanyProfile(cmp.FirstOrDefault());
+                ViewBag.values = Newtonsoft.Json.JsonConvert.SerializeObject(users);
+            }
+            ViewBag.schema = Newtonsoft.Json.JsonConvert.SerializeObject(schema);
+            ViewBag.modalTitle = "Company Profile";
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -102,7 +127,11 @@ namespace upvcDesign.Controllers
                 ViewBag.values = Newtonsoft.Json.JsonConvert.SerializeObject(clt);
                 ViewBag.modalTitle = "Edit Suplier";
             }
-
+            else if (ID.Contains("AddMaterialType"))
+            {
+                schema = generator.Generate(typeof(MaterialType));
+                ViewBag.modalTitle = "Add Material Type";
+            }
             ViewBag.schema = Newtonsoft.Json.JsonConvert.SerializeObject(schema);
 
             return View();

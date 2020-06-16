@@ -16,11 +16,13 @@ namespace upvcDesign.Controllers
         IEmpRepo _repo;
         IClientRepo _client;
         ISuplierRepo _suplier;
-        public ViewDataServerController(IEmpRepo repo, IClientRepo clt, ISuplierRepo sup)
+        IMeterialTypeRepo _meterial;
+        public ViewDataServerController(IEmpRepo repo, IClientRepo clt, ISuplierRepo sup, IMeterialTypeRepo meterial)
         {
             _repo = repo;
             _client = clt;
             _suplier = sup;
+            _meterial = meterial;
         }
         [HttpPost]
         [Authorize(Roles =Role.Admin)]
@@ -168,6 +170,54 @@ namespace upvcDesign.Controllers
             // now just get the count of items (without the skip and take) - eg how many could be returned with filtering
             var filteredResultsCount = result.Count();
             var cntdb = await _suplier.GetSuplier();
+            var totalResultsCount = cntdb.Count();
+
+            return Json(new
+            {
+                draw = dtParameters.Draw,
+                recordsTotal = totalResultsCount,
+                recordsFiltered = filteredResultsCount,
+                data = result
+                    .Skip(dtParameters.Start)
+                    .Take(dtParameters.Length)
+                    .ToList()
+            });
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> LoadMaterialTypeTables([FromBody]DtParameters dtParameters)
+        {
+            var searchBy = dtParameters.Search?.Value;
+
+            var orderCriteria = string.Empty;
+            var orderAscendingDirection = true;
+
+            if (dtParameters.Order != null)
+            {
+                // in this example we just default sort on the 1st column
+                orderCriteria = dtParameters.Columns[dtParameters.Order[0].Column].Data;
+                orderAscendingDirection = dtParameters.Order[0].Dir.ToString().ToLower() == "asc";
+            }
+            else
+            {
+                // if we have an empty search then just order the results by Id ascending
+                orderCriteria = "Id";
+                orderAscendingDirection = true;
+            }
+
+            var result = await _meterial.GetMaterialType();
+
+            if (!string.IsNullOrEmpty(searchBy))
+            {
+                result = result.Where(r => r.name != null && r.name.ToUpper().Contains(searchBy.ToUpper()))
+                    .ToList();
+            }
+
+            result = orderAscendingDirection ? result.AsQueryable().OrderByDynamic(orderCriteria, DtOrderDir.Asc).ToList() : result.AsQueryable().OrderByDynamic(orderCriteria, DtOrderDir.Desc).ToList();
+
+            // now just get the count of items (without the skip and take) - eg how many could be returned with filtering
+            var filteredResultsCount = result.Count();
+            var cntdb = await _meterial.GetMaterialType();
             var totalResultsCount = cntdb.Count();
 
             return Json(new

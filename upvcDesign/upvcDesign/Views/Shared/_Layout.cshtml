@@ -51,6 +51,8 @@
     <link rel="stylesheet" href="~/sweetAlert/sweetalert.css">
 
     <link rel="shortcut icon" href="~/asset/img/logomi.png">
+    <!--Two JS-->
+    <script src="~/lib/twojs/two.js"></script>
 
     <script src="~/js/ViewModels/common.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -119,9 +121,9 @@
                 <ul class="nav nav-list">
                     <li><div class="left-bg"></div></li>
                     @*<li class="time">
-                            <h1 class="animated fadeInLeft">21:00</h1>
-                            <p class="animated fadeInRight">Sat,October 1st 2029</p>
-                        </li>*@
+            <h1 class="animated fadeInLeft">21:00</h1>
+            <p class="animated fadeInRight">Sat,October 1st 2029</p>
+        </li>*@
                     <li class="active ripple">
                         <a href="/Home/" class="nav-header">
                             <span class="fa-home fa"></span> Dashboard
@@ -143,7 +145,7 @@
                         <ul class="nav nav-list tree">
                             <li><a href="datatables.html">Stocks</a></li>
                             <li><a href="handsontable.html">Materials</a></li>
-                            <li><a href="tablestatic.html">Material Types</a></li>
+                            <li><a asp-action="MateialType" asp-controller="Home">Material Types</a></li>
                         </ul>
                     </li>
                     <li class="ripple">
@@ -152,7 +154,7 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a  asp-action="Clients" asp-controller="Home">Clients</a></li>
+                            <li><a asp-action="Clients" asp-controller="Home">Clients</a></li>
                         </ul>
                     </li>
                     <li class="ripple">
@@ -161,7 +163,7 @@
                             <span class="fa-angle-right fa right-arrow text-right"></span>
                         </a>
                         <ul class="nav nav-list tree">
-                            <li><a  asp-action="Supliers" asp-controller="Home">Supliers</a></li>
+                            <li><a asp-action="Supliers" asp-controller="Home">Supliers</a></li>
 
                         </ul>
                     </li>
@@ -171,6 +173,15 @@
                         </a>
                         <ul class="nav nav-list tree">
                             <li><a asp-action="Employees" asp-controller="Home">Employees</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="ripple">
+                        <a class="tree-toggle nav-header">
+                            <span class="fa fa-pencil-square"></span> Company Profile  <span class="fa-angle-right fa right-arrow text-right"></span>
+                        </a>
+                        <ul class="nav nav-list tree">
+                            <li><a asp-action="CompanyProfile" asp-controller="Home">Company Profile</a></li>
 
                         </ul>
                     </li>

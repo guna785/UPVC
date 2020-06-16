@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "CompanyProfile";
+}
+<div class="panel box-shadow-none content-header">
+    <div class="panel-body">
+        <div class="col-md-12">
+            <h3 class="animated fadeInLeft">Company Profile</h3>
+            <p class="animated fadeInDown">
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 top-20 padding-0">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading"><h5 class="animated fadeInLeft">Profile</h5></div>
+            <div class="panel-body">
+                <div class="form-group" style="padding:30px;">
+                    <div id="form-container"></div>
+                    <br />
+                    <input type="button" onclick="valSubmit();" class="btn btn-primary" value="Submit" />
+                </div>
+                <script>
+                    var sc = '@ViewBag.schema';
+                    var schema = JSON.parse(sc.replace(/&quot;/g, '"'));
+                    var vl = '@ViewBag.values';
+                    var val = {};
+                    if (vl !== "") {
+                        val = JSON.parse(vl.replace(/&quot;/g, '"'));
+                    }
+                    var title = '@ViewBag.modalTitle';
+    
+                    var BrutusinForms = brutusin["json-forms"];
+                    var bf = BrutusinForms.create(schema);
+                    var container = document.getElementById('form-container');
+                    bf.render(container, val);
+
+                    function valSubmit() {
+                        if (bf.validate()) {
+                            console.log(bf.getData());
+                            $.ajax({
+                                url: "/Company/CompnayProfileUpdate/",
+                                dataType: 'json',
+                                type: 'post',
+                                contentType: 'application/json',
+                                processData: false,
+                                data: JSON.stringify(bf.getData()),
+                                async: true,
+                                success: function (response) {
+                                    sweetAlert('Congratulations!', response.status, 'success');
+                                },
+                                error: function (e) {
+                                    swal("Oops", e.responseText, "error");
+                                }
+                            });
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
